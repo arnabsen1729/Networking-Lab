@@ -7,7 +7,7 @@
 
 ## Question 1
 
-Check the version of the `tcpdump` and the `libpcap` utilities. Also find the number of interfaces available with your computer. Switch the network of `eth0/eth1` (or the ethernet interface name as appeared) to promiscuous mode.
+Check the version of the `tcpdump` and the `libpcap` utilities. Also, find the number of interfaces available with your computer. Switch the network of `eth0/eth1` (or the ethernet interface name as appeared) to promiscuous mode.
 
 ## Answer 1
 
@@ -79,10 +79,11 @@ tcpdump -r capture2.pcap
 
 ![capture1](./ss/capture2read.png)
 
-Taking look into one packet from `capture1.pcap`:
+Taking look at one packet from `capture1.pcap`:
 
 ```bash
-15:44:13.249154 IP a104-108-159-104.deploy.static.akamaitechnologies.com.https > kali.54610: Flags [P.], seq 0:454, ack 1, win 501, options [nop,nop,TS val 906379475 ecr 2384804085], length 454
+15:44:13.249154 IP a104-108-159-104.deploy.static.akamaitechnologies.com.https > kali.54610:
+Flags [P.], seq 0:454, ack 1, win 501, options [nop,nop,TS val 906379475 ecr 2384804085], length 454
 ```
 
 | Data | Description |
@@ -105,7 +106,8 @@ Extract packet arrival time, source IP address, destination IP address and port.
 
 ```bash
 $ tcpdump -tttt -n -r capture2.pcap -c 1
-2022-01-18 16:02:00.424504 IP 104.16.70.125.443 > 192.168.1.4.36356: Flags [P.], seq 3996260114:3996260153, ack 3435171818, win 73, length 39
+2022-01-18 16:02:00.424504 IP 104.16.70.125.443 > 192.168.1.4.36356:
+Flags [P.], seq 3996260114:3996260153, ack 3435171818, win 73, length 39
 ```
 
 ![img](./ss/q4.png)
@@ -124,7 +126,8 @@ To get MAC address we use the `-e` tag.
 
 ```bash
 $ tcpdump -tttt -en -r capture2.pcap -c 1
-2022-01-18 16:02:00.424504 7c:a9:6b:33:c3:d6 > 24:ee:9a:81:09:25, ethertype IPv4 (0x0800), length 93: 104.16.70.125.443 > 192.168.1.4.36356: Flags [P.], seq 3996260114:3996260153, ack 3435171818, win 73, length 39
+2022-01-18 16:02:00.424504 7c:a9:6b:33:c3:d6 > 24:ee:9a:81:09:25, ethertype IPv4 (0x0800), length 93:
+104.16.70.125.443 > 192.168.1.4.36356: Flags [P.], seq 3996260114:3996260153, ack 3435171818, win 73, length 39
 ```
 
 ![img](./ss/q5.png)
@@ -175,13 +178,15 @@ Running the corresponding command and the `tcpdump` simultaneously.
 We know that `ping` uses the ICMP protocol and we can see in `tcpdump` that the requests from my machine are `icmp echo request` and the corresponding response is `icmp echo reply`.
 
 ```bash
-10:20:34.744273 IP kali > ec2-13-234-210-38.ap-south-1.compute.amazonaws.com: ICMP echo request, id 47531, seq 1, length 64
-10:20:34.786154 IP ec2-13-234-210-38.ap-south-1.compute.amazonaws.com > kali: ICMP echo reply, id 47531, seq 1, length 64
+10:20:34.744273 IP kali > ec2-13-234-210-38.ap-south-1.compute.amazonaws.com:
+        ICMP echo request, id 47531, seq 1, length 64
+10:20:34.786154 IP ec2-13-234-210-38.ap-south-1.compute.amazonaws.com > kali:
+        ICMP echo reply, id 47531, seq 1, length 64
 ```
 
-In the first request the source is `kali` and the destination is `ec2-13-234-210-38.ap-south-1.compute.amazonaws.com` which is the github server. The protocol used is `ICMP` because it was `ping` command. And the packet length is `64` which is default packet length for `ping`.
+In the first request the source is `kali` and the destination is `ec2-13-234-210-38.ap-south-1.compute.amazonaws.com` which is the github server. The protocol used is `ICMP` because it was `ping` command. And the packet length is `64` which is the default packet length for `ping`.
 
-In the second repy the source is the github.com server `ec2-13-234-210-38.ap-south-1.compute.amazonaws.com` and the destination is `kali`. Everything else is same.
+In the second reply the source is the github.com server `ec2-13-234-210-38.ap-south-1.compute.amazonaws.com` and the destination is `kali`. Everything else is the same.
 
 ### `wget`
 
@@ -190,14 +195,20 @@ In the second repy the source is the github.com server `ec2-13-234-210-38.ap-sou
 Going through the first few packets:
 
 ```bash
-10:27:52.701414 IP kali.40416 > ec2-13-234-210-38.ap-south-1.compute.amazonaws.com.https: Flags [S], seq 3180707483, win 64240, options [mss 1460,sackOK,TS val 3886262508 ecr 0,nop,wscale 7], length 0
-10:27:52.746862 IP ec2-13-234-210-38.ap-south-1.compute.amazonaws.com.https > kali.40416: Flags [S.], seq 1198877882, ack 3180707484, win 65535, options [mss 1436,sackOK,TS val 66019864 ecr 3886262508,nop,wscale 10], length 0
-10:27:52.746930 IP kali.40416 > ec2-13-234-210-38.ap-south-1.compute.amazonaws.com.https: Flags [.], ack 1, win 502, options [nop,nop,TS val 3886262553 ecr 66019864], length 0
-10:27:52.747855 IP kali.40416 > ec2-13-234-210-38.ap-south-1.compute.amazonaws.com.https: Flags [P.], seq 1:518, ack 1, win 502, options [nop,nop,TS val 3886262554 ecr 66019864], length 517
-10:27:52.794038 IP ec2-13-234-210-38.ap-south-1.compute.amazonaws.com.https > kali.40416: Flags [P.], seq 1:2754, ack 518, win 66, options [nop,nop,TS val 66019911 ecr 3886262554], length 2753
+10:27:52.701414 IP kali.40416 > ec2-13-234-210-38.ap-south-1.compute.amazonaws.com.https: Flags [S],
+ seq 3180707483, win 64240, options [mss 1460,sackOK,TS val 3886262508 ecr 0,nop,wscale 7], length 0
+10:27:52.746862 IP ec2-13-234-210-38.ap-south-1.compute.amazonaws.com.https > kali.40416: Flags [S.],
+ seq 1198877882, ack 3180707484, win 65535, options [mss 1436,sackOK,TS val 66019864 ecr,nop,wscale 10], length 0
+10:27:52.746930 IP kali.40416 > ec2-13-234-210-38.ap-south-1.compute.amazonaws.com.https: Flags [.],
+ ack 1, win 502, options [nop,nop,TS val 3886262553 ecr 66019864], length 0
+10:27:52.747855 IP kali.40416 > ec2-13-234-210-38.ap-south-1.compute.amazonaws.com.https: Flags [P.],
+ seq 1:518, ack 1, win 502, options [nop,nop,TS val 3886262554 ecr 66019864], length 517
+10:27:52.794038 IP ec2-13-234-210-38.ap-south-1.compute.amazonaws.com.https > kali.40416: Flags [P.],
+ seq 1:2754, ack 518, win 66, options [nop,nop,TS val 66019911 ecr 3886262554], length 2753
 ```
 
 | Packet # | Source | Destination | Packet type | Packet Length |
+|---|---|---|---|---|
 | 1 | `kali` | `ec2-13-234-210-38.ap-south-1.compute.amazonaws.com` | `HTTPS` request with `SYN` flag | 0 |
 | 2 | `ec2-13-234-210-38.ap-south-1.compute.amazonaws.com` | `kali` | `HTTPS` reply with `SYN-ACK` flag | 0 |
 | 3 | `kali` | `ec2-13-234-210-38.ap-south-1.compute.amazonaws.com` | `HTTPS` request with `ACK` flag | 0 |
@@ -208,7 +219,7 @@ Going through the first few packets:
 
 ![tcpdump](./ss/q8-trace.png)
 
-Since I am using tracerote with `-I` it will send ICMP requests and we can see that. If we analyse the packets we see first a DNS resolution happens.
+Since I am using `traceroute` with `-I` it will send `ICMP` requests and we can see that. If we analyse the packets we see first a DNS resolution happens.
 
 ```bash
 11:21:47.696631 IP 10.10.0.1.domain > kali.57211: 58638 1/1/0 CNAME github.com. (130)
@@ -218,10 +229,11 @@ Since I am using tracerote with `-I` it will send ICMP requests and we can see t
 Then some `ICMP ECHO` requests are sent.
 
 ```bash
-11:21:47.699343 IP kali > ec2-13-234-210-38.ap-south-1.compute.amazonaws.com: ICMP echo request, id 63001, seq 1, length 40
+11:21:47.699343 IP kali > ec2-13-234-210-38.ap-south-1.compute.amazonaws.com:
+        ICMP echo request, id 63001, seq 1, length 40
 ```
 
-Few of them responds with `ICMP time exceeded in-transit` which is expected since that's how traceroute works.
+Few of them respond with `ICMP time exceeded in-transit` which is expected since that's how traceroute works.
 
 ```bash
 11:21:47.705001 IP 10.10.0.5 > kali: ICMP time exceeded in-transit, length 68
@@ -240,7 +252,7 @@ Few of them responds with `ICMP time exceeded in-transit` which is expected sinc
 
 ![tcpdump](./ss/q8-trace-2.png)
 
-Also, we can notice that the IPs from the ICMP Time Limit Exceeded matches exactly with the IPs from the traceroute command.
+Also, we can notice that the IPs from the ICMP Time Limit Exceeded match exactly with the IPs from the traceroute command.
 
 ## Question 9
 
@@ -252,7 +264,7 @@ Write the `tcpdump` command that captures packets containing TCP packets with a 
 
 ![src-dest](./ss/q9.png)
 
-Here source is my local ip and destination is `13.234.210.38` (www.github.com's IP)
+Here the source is my local IP and destination is `13.234.210.38` (www.github.com's IP)
 
 ### (ii) Only Source
 

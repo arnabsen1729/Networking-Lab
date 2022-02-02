@@ -1,5 +1,10 @@
 # Assignment 1
 
+MAC - Media Access Control
+ICMP - Internet Control Message Protocol
+ARP - Address Resoltion Packet
+DNS - Domain Name System
+
 ## `ping`
 
 - Uses ICMP (Internet Control Message Protocol).
@@ -104,6 +109,49 @@ google.com.  131 IN A 142.250.183.206
 
 1. IP Address of `google.com` is **142.250.183.206**.
 2. IP addresses of DNS servers is **10.10.0.1**.
+
+### A Record (address)‍
+
+Most commonly used to map a fully qualified domain name (FQDN) to an IPv4 address and acts as a translator by converting domain names to IP addresses.
+
+### AAAA Record (quad A)
+
+Similar to A Records but maps to an IPv6 address (smartphones prefer IPv6, if available).
+
+### CNAME Record (Canonical Name)
+
+An alias that points to another domain or subdomain, but never an IP address. Alias record mapping FQDN to FQDN, multiple hosts to a single location. This record is also good for when you want to change an IP address over time as it allows you to make changes without affecting user bookmarks, etc.
+
+### ANAME Record
+
+This record type allows you to point the root of your domain to a hostname or FQDN
+
+### SOA Record (Start of Authority)‍
+
+Stores information about domains and is used to direct how a DNS zone propagates to secondary name servers.
+
+### NS Record (name server)‍
+
+Specifies which name servers are authoritative for a domain or subdomains (these records should not be pointed to a CNAME).
+
+### MX Record (Mail eXchange)‍
+
+Uses mail servers to map where to deliver email for a domain (should point to a mail server name and not to an IP address).
+
+### TXT (text) Record‍
+
+Allows administrators to add limited human and machine-readable notes and can be used for things such as email validation, site, and ownership verification, framework policies, etc., and doesn’t require specific formatting.
+
+### SRV Record (service)‍
+
+Allows services such as instant messaging or VoIP to be directed to a separate host and port location.
+
+PTR Record (pointer)
+A reverse of A and AAAA records, which maps IP addresses to domain names. These records require domain authority and can’t exist in the same zone as other DNS record types (put in reverse zones).
+
+SPF Record (sender policy framework)‍
+Helps prevent email spoofing and limits spammers.
+‍Note: This record type has been deprecated in favor of TXT record types and may no longer be supported by all providers. We still support modifications and deletions of SPF records currently in your Constellix account, but new configurations must be in TXT record format.
 
 ## `traceroute`
 

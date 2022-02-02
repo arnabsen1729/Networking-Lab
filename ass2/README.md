@@ -11,6 +11,8 @@ Port Number: 16 bit identifier
 0-1023 -> well defined port numbers
 1024 - onwards -> temporary port numbers assign to web request
 
+Generally speaking, "promiscuous mode" means that a network interface card will pass all frames received up to the operating system for processing, versus the traditional mode of operation wherein only frames destined for the NIC's MAC address or a broadcast address will be passed up to the OS. Generally, promiscuous mode is used to "sniff" all traffic on the wire.
+
 <https://serverfault.com/questions/106647/what-does-ifconfig-promisc-mode-do-or-promiscuous-mode-in-general>
 
 <https://www.techtarget.com/searchsecurity/definition/promiscuous-mode>
