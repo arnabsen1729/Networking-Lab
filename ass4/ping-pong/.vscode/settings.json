@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "*.erb": "erb",
+        "array": "c",
+        "deque": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "ranges": "c",
+        "__bit_reference": "c",
+        "__hash_table": "c",
+        "__split_buffer": "c",
+        "__tree": "c",
+        "filesystem": "c",
+        "ios": "c",
+        "iterator": "c",
+        "map": "c"
+    }
+}
