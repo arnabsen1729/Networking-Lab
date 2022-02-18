@@ -12,6 +12,16 @@
 #define PORT 50000
 #define BUFFSIZE 1024
 
+/**
+ * @brief Sets a timeout to the socket
+ *
+ * This prevents waitind indefinitely for a response from the server.
+ * If the server does not respond within the timeout, it will trigger
+ * an error.
+ *
+ * @param soc The socket descriptor to set the timeout on
+ * @param sec The timeout in seconds
+ */
 void setTimeOut(int soc, int sec) {
   struct timeval tv;
   tv.tv_sec = sec;
@@ -35,7 +45,7 @@ int main() {
   */
   if ((soc_des = socket(PF_INET, SOCK_DGRAM, 0)) == -1) {
     perror("cannot create socket");
-    return 0;
+    exit(EXIT_FAILURE);
   }
 
   /*
@@ -54,28 +64,38 @@ int main() {
   printf("Enter arithmetic operations (q to quit)\n");
   printf("format <operator>:<first-operand>:<second-operand>\n\n");
   while (true) {
+    // read input from user
     printf("> ");
     char input[BUFFSIZE];
     scanf("%s", input);
+
+    // check if user wants to quit
     if (strcmp(input, "q") == 0) {
       printf("Quitting...\n");
       break;
     }
+
+    // send input to server
     dest_bytes = sendto(soc_des, input, BUFFSIZE, 0,
                         (struct sockaddr *)&dest_addr, dest_addr_len);
     if (dest_bytes < 0) {
       perror("sendto");
       continue;
     }
+
+    // receive response from server
     dest_bytes = recvfrom(soc_des, buff, BUFFSIZE, 0,
                           (struct sockaddr *)&dest_addr, &dest_addr_len);
     if (dest_bytes < 0) {
       perror("recvfrom");
       continue;
     }
+
+    // print response to the user
     printf("%s\n", buff);
   }
 
+  // close the socket
   close(soc_des);
 
   return 0;

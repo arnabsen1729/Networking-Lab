@@ -11,6 +11,16 @@
 #define PORT 50000
 #define BUFFSIZE 1024
 
+/**
+ * @brief Sets a timeout to the socket
+ *
+ * This prevents waitind indefinitely for a response from the server.
+ * If the server does not respond within the timeout, it will trigger
+ * an error.
+ *
+ * @param soc The socket descriptor to set the timeout on
+ * @param sec The timeout in seconds
+ */
 void setTimeOut(int soc, int sec) {
   struct timeval tv;
   tv.tv_sec = sec;
@@ -21,12 +31,20 @@ void setTimeOut(int soc, int sec) {
   }
 }
 
+/**
+ * @brief returns the time difference in microseconds
+ *
+ * @param start start time
+ * @param end end time
+ * @return uint64_t time difference in microseconds
+ */
 uint64_t difftime_us(struct timespec start, struct timespec end) {
   return (end.tv_sec - start.tv_sec) * 1000000 +
          (end.tv_nsec - start.tv_nsec) / 1000;
 }
 
 int main() {
+  // data structures to store stats
   struct timespec start, end;
   int total_responses = 0;
   double total_time = 0, min_time = INT_MAX, max_time = 0;
@@ -67,6 +85,8 @@ int main() {
   for (int i = 0; i < 10; i++) {
     // noting down the time BEFORE sending the ping message
     clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+
+    // send ping message to server
     int data_sent = sendto(soc_des, ping, dest_bytes, 0,
                            (struct sockaddr *)&dest_addr, sizeof(dest_addr));
     if (data_sent < 0) {
@@ -74,6 +94,7 @@ int main() {
       continue;
     }
 
+    // receive response from server
     int data_received = recvfrom(soc_des, buff, BUFFSIZE - 1, 0,
                                  (struct sockaddr *)&dest_addr, &dest_addr_len);
 
@@ -110,9 +131,12 @@ int main() {
 
   close(soc_des);
 
-  printf("\n\n\t--- statistics ---\n", total_responses);
+  /*
+    print the statistics
+  */
+  printf("\n\n--- statistics ---\n", total_responses);
   printf(
-      "10 packets transmitted, %d received, %.2f %% packet loss, time %.4f "
+      "10 packets transmitted, %d received\n%.2f%% packet loss, time %.4f "
       "ms\n",
       total_responses, (10 - total_responses) * 10.0, total_time);
   printf("rtt min/avg/max = %.4f/%.4f/%.4f ms\n", min_time,
