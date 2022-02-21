@@ -16,6 +16,7 @@
         "filesystem": "c",
         "ios": "c",
         "iterator": "c",
-        "map": "c"
+        "map": "c",
+        "socket.h": "c"
     }
 }

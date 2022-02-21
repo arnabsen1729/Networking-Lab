@@ -1,3 +1,13 @@
+/**
+ * @file client.c
+ * @author Arnab Sen (arnabsen1729@gmail.com)
+ * @brief Client program of ping-pong game
+ *
+ * The client will send 10 ping messages and determine the RTT for each message.
+ *
+ * @date 2022-02-19
+ */
+
 #include <arpa/inet.h>
 #include <limits.h>
 #include <netinet/in.h>  // Internet family of protocols
@@ -51,7 +61,7 @@ int main() {
 
   int soc_des;                   // socket file descriptor
   struct sockaddr_in dest_addr;  // socket destination address structure
-  int dest_addr_len;             // length of the destination address structure
+  socklen_t dest_addr_len;       // length of the destination address structure
   char ping[] = "ping";          // ping message
   char buff[BUFFSIZE];           // buffer for receiving data
   int dest_bytes = sizeof(ping);
@@ -67,9 +77,10 @@ int main() {
   /*
     initialize the destination address structure
   */
-  dest_addr.sin_family = PF_INET;  // Internet family of protocols
+  dest_addr.sin_family = AF_INET;  // Internet family of protocols
   dest_addr.sin_addr.s_addr = inet_addr(SERVERIP);  // Server IP
   dest_addr.sin_port = htons(PORT);  // Server port - changing byte order
+
   dest_addr_len = sizeof(dest_addr);
 
   /*
@@ -88,7 +99,7 @@ int main() {
 
     // send ping message to server
     int data_sent = sendto(soc_des, ping, dest_bytes, 0,
-                           (struct sockaddr *)&dest_addr, sizeof(dest_addr));
+                           (struct sockaddr *)&dest_addr, dest_addr_len);
     if (data_sent < 0) {
       perror("cannot send");
       continue;

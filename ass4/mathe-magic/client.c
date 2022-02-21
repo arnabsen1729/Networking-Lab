@@ -1,3 +1,13 @@
+/**
+ * @file client.c
+ * @author Arnab Sen (arnabsen1729@gmail.com)
+ * @brief Client program of mathe-magic
+ *
+ * The client will prompt the user to enter a command.
+ * It will be sent to the server and the response will be displayed.
+ * @date 2022-02-19
+ */
+
 #include <arpa/inet.h>
 #include <netinet/in.h>  // Internet family of protocols
 #include <stdbool.h>

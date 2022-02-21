@@ -1,3 +1,14 @@
+/**
+ * @file server.c
+ * @author Arnab Sen (arnabsen1729@gmail.com)
+ * @brief Server program of ping-pong game
+ *
+ * The server will listen for incoming connections and send back pong
+ * messages for every ping message received.
+ *
+ * @date 2022-02-19
+ */
+
 #include <arpa/inet.h>
 #include <errno.h>
 #include <netinet/in.h>  // Internet family of protocols
@@ -59,10 +70,10 @@ int main() {
   /*
     initialize the address structure
   */
-  server_addr.sin_family = PF_INET;
+  server_addr.sin_family = AF_INET;
   server_addr.sin_addr.s_addr = INADDR_ANY;  // inet_addr("127.0.0.1") ;
-                                             // Converts to 32-bit number
-  server_addr.sin_port = htons(PORT);        // Port number - byte order
+
+  server_addr.sin_port = htons(PORT);  // Port number - byte order
 
   /*
     bind the socket to the address
@@ -94,7 +105,7 @@ int main() {
       before responding with pong we are simulating a latency
       to simulate a network delay
     */
-    msleep(rand() % 2000);
+    // msleep(rand() % 2000);  // sleep()
 
     // send pong to client
     data_bytes = sendto(soc, buff, data_bytes, 0,

@@ -1,3 +1,15 @@
+/**
+ * @file server.c
+ * @author Arnab Sen (arnabsen1729@gmail.com)
+ * @brief Server program for mathe-magic
+ *
+ * Server receives the command sent from the client.
+ * Parses the command and then calculates the result.
+ * If the command is invalid, it will return an error message.
+ *
+ * @date 2022-02-19
+ */
+
 #include <arpa/inet.h>
 #include <netinet/in.h>  // Internet family of protocols
 #include <stdbool.h>
