@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "*.erb": "erb",
+    "*.tcc": "c",
+    "fstream": "c",
+    "system_error": "c",
+    "__config": "c",
+    "__functional_03": "c",
+    "functional": "c",
+    "locale": "c",
+    "random": "c"
+  }
+}
