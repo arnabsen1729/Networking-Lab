@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "*.erb": "erb",
+    "types.h": "c",
+    "string": "c",
+    "filesystem": "c",
+    "iosfwd": "c"
+  }
+}
