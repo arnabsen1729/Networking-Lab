@@ -15,7 +15,7 @@ Implement the Dijkstra’s algorithm (LS routing) to find the shortest path tree
 
 ### Code
 
-```cpp
+```cPP
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -23,10 +23,12 @@ Implement the Dijkstra’s algorithm (LS routing) to find the shortest path tree
 
 int n = 7;   // number of nodes
 int m = 12;  // number of edges
-int adj[][7] = {{0, 4, 5, 3, 0, 0, 0}, {4, 0, 2, 0, 0, 3, 4},
+int adj[][7] = {
+                {0, 4, 5, 3, 0, 0, 0}, {4, 0, 2, 0, 0, 3, 4},
                 {5, 2, 0, 6, 4, 4, 0}, {3, 0, 6, 0, 3, 0, 0},
                 {0, 0, 4, 3, 0, 2, 0}, {0, 3, 4, 0, 2, 0, 5},
-                {0, 4, 0, 0, 0, 5, 0}};
+                {0, 4, 0, 0, 0, 5, 0}
+};
 
 void dijkstra(int src) {
   int dist[n];
