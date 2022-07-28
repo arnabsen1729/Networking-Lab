@@ -123,11 +123,13 @@ Consider the network shown below, and assume that each node initially knows the 
 #define MAX_VAL 10000
 
 int nodes = 5;
-int matrix[5][5] = {{0, 1, MAX_VAL, 2, MAX_VAL},
+int matrix[5][5] = {
+                    {0, 1, MAX_VAL, 2, MAX_VAL},
                     {1, 0, 3, MAX_VAL, 6},
                     {MAX_VAL, 3, 0, 3, 2},
                     {2, MAX_VAL, 3, 0, MAX_VAL},
-                    {MAX_VAL, 6, 2, MAX_VAL, 0}};
+                    {MAX_VAL, 6, 2, MAX_VAL, 0}
+};
 
 int distance_table[5][5][2];
 
