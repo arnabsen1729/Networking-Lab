@@ -62,7 +62,7 @@ int main() {
   int soc_des;                   // socket file descriptor
   struct sockaddr_in dest_addr;  // socket destination address structure
   socklen_t dest_addr_len;       // length of the destination address structure
-  char ping[] = "ping";          // ping message
+  char ping[] = "";              // ping message
   char buff[BUFFSIZE];           // buffer for receiving data
   int dest_bytes = sizeof(ping);
 

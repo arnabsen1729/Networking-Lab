@@ -1,0 +1,24 @@
+1 Distance_Vector_Routing ( )
+2 {
+3 	// Initialize (create initial vectors for the node)
+4 	D[myself ] = 0
+5 	for (y = 1 to N)
+6 	{
+7 		if (y is a neighbor)
+8 			D[y] = c[myself ][y]
+9 		else
+10 			D[y] = ∞
+11 	}
+12 	send vector {D[1], D[2], …, D[N]} to all neighbors
+13 	// Update (improve the vector with the vector received from a neighbor)
+14 	repeat (forever)
+15 	{
+16 		wait (for a vector Dw from a neighbor w or any change in the link)
+17 		for (y = 1 to N)
+18 		{
+19 			D[y] = min [D[y], (c[myself ][w] + Dw[y ])] // Bellman-Ford equation
+20 		}
+21 		if (any change in the vector)
+22 			send vector {D[1], D[2], …, D[N]} to all neighbors
+23 	}
+24 } // End of Distance Vector

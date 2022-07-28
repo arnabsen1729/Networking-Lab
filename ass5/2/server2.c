@@ -8,7 +8,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#define PORT 6001
+#define PORT 5000
 
 void export(FILE *fd, double value, int port) {
   fprintf(fd, "%d, %f\n", port, value);

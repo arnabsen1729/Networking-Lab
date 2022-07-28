@@ -1,0 +1,25 @@
+1 Dijkstra’s Algorithm ( )
+2 {
+3 	// Initialization
+4 	Tree = {root} // Tree is made only of the root
+5 	for (y = 1 to N) // N is the number of nodes
+6 	{
+7 		if (y is the root)
+8 			D[y] = 0 // D[y] is shortest distance from root to node y
+9 		else if (y is a neighbor)
+10 			D[y] = c[root][y] // c[x][y] is cost between nodes x and y in LSDB
+11 		else
+12 			D[y] = ∞
+13 	}
+14 // Calculation
+15 	repeat
+16 	{
+17 		find a node w, with D[w] minimum among all nodes not in the Tree
+18 		Tree = Tree ∪ {w} // Add w to tree
+19 		// Update distances for all neighbors of w
+20 		for (every node x, which is a neighbor of w and not in the Tree)
+21 		{
+22 			D[x] = min{D[x], (D[w] + c[w][x])}
+23 		}
+24	} until (all nodes included in the Tree)
+25 } // End of Dijkstra

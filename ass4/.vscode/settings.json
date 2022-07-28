@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "*.erb": "erb",
-        "unistd.h": "c"
-    }
-}

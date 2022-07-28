@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.erb": "erb",
+        "chrono": "c",
+        "random": "c",
+        "limits": "c",
+        "ranges": "c",
+        "algorithm": "c",
+        "ratio": "c",
+        "__locale": "c"
+    }
+}

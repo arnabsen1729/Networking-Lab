@@ -98,8 +98,8 @@ int main() {
 
     buff[data_bytes] = '\0';
     printf("Received: %s\n", buff);
-
-    strcpy(buff, "pong");
+    buff[0] = '\0';
+    // strcpy(buff, "pong");
 
     /*
       before responding with pong we are simulating a latency
@@ -115,7 +115,7 @@ int main() {
       perror("cannot send");
       return 1;
     }
-
+    printf("DATA SENT: %d\n", data_bytes);
     printf("Sent: %s\n", buff);
   }
 
